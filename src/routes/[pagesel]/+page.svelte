@@ -6,33 +6,37 @@
     $: selectedData = allData.find(findData => findData.id == $pageSelected);
 
     function handleTitleChange(e){
-        console.log(e.target);
         selectedData.title = e.target.value;
-        $pagesData = $pagesData
+        $pagesData = $pagesData;
     }
 
     function handleContentChange(e){
         selectedData.content = e.target.innerText;
+        $pagesData = $pagesData;
     }
 
+    function debug(){
+        console.log({
+            selectedData,
+            $pagesData
+        })
+    }
 </script>
 
 <div class="flex flex-col grow p-32 px-48">
-    <strong>
-        <input 
-            class=" bg-transparent text-4xl focus:outline-none w-full" 
-            value={selectedData.title}
-            on:blur={handleTitleChange}
-        />
-    </strong>
-    <div
-        class="text-lg pt-5 focus: outline-none"
-        contenteditable
-        on:blur={handleContentChange}
-    >
-        {selectedData.content}
-    </div>
-    <button on:click={()=>{console.log(selectedData)}}>
+    <input 
+        class=" bg-transparent text-4xl w-full font-bold focus:outline-none " 
+        value={selectedData?.title}
+        on:blur={handleTitleChange}
+    />
+    <textarea
+        class="text-lg pt-5 bg-transparent focus: outline-none"
+        rows="10"
+        bind:value = {selectedData.content}
+    />
+        
+    <button on:click={()=>{debug()}}>
         Debug
     </button>
 </div>
+ 
